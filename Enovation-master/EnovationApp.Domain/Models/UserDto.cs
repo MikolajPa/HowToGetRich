@@ -10,6 +10,7 @@ namespace EnovationAssignment.Models
         public string Email { get; set; }
         public bool isDistributor { get; set; }
         public string walletId { get; set; }
+        public string accountId { get; set; }
     }
 
     public class UserRequest

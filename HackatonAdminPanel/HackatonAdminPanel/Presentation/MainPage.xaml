@@ -13,6 +13,7 @@
     <Grid.RowDefinitions>
       
       <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
       <RowDefinition Height="3*" />
     </Grid.RowDefinitions>
     <utu:NavigationBar Content="{Binding Title}" />
@@ -25,18 +26,21 @@
       <Button Content="Add new object"
           AutomationProperties.AutomationId="SecondPageButton"
           Command="{Binding GoToSecond}" />
-      <Button Content="Delete selected object" Background="#ED5E68" Margin="10"/>
-      <Button Content="Refresh" />
+      <Button Content="Delete selected object" Background="#ED5E68" Margin="10" Command="{Binding Delete}"/>
+      <Button Content="Refresh" Command="{Binding Refresh}"/>
+      <Button Content="Add Mint Token" Command="{Binding AddTokenCommand}"/>
+      <TextBox Text="{Binding Walleturl, Mode=TwoWay}" PlaceholderText="Url" />
+    </StackPanel>
+    <StackPanel Grid.Row="1">
+      <Button Content="Go to details" Command="{Binding GetDetailsCommand}"/>
+
     </StackPanel>
 
-    <ListView Grid.Row="1" ItemsSource="{Binding UsersList}" SelectedItem="{Binding SelectedUser}" HorizontalAlignment="Center">
+    <ListView Grid.Row="2" ItemsSource="{Binding UsersList, Mode=TwoWay}" SelectedItem="{Binding SelectedUser, Mode=TwoWay}" SelectionMode="Single" HorizontalAlignment="Center">
       <ListView.ItemTemplate>
         <DataTemplate x:DataType="models:UserDto">
           <StackPanel Orientation="Horizontal" Spacing="10">
-            <TextBlock>
-                            <Run Text="Id: " />
-                            <Run Text="{x:Bind Id}" FontWeight="Bold" />
-            </TextBlock>
+            <TextBlock Text="{Binding Id}"/>
             <TextBlock>
                             <Run Text="Name: " />
                             <Run Text="{x:Bind Name}" FontWeight="Bold" />
@@ -47,11 +51,11 @@
             </TextBlock>
             <TextBlock>
                             <Run Text="Distributor: " />
-                            <Run Text="{x:Bind isDistributor}" FontWeight="Bold" />
+                            <Run Text="{x:Bind IsDistributor}" FontWeight="Bold" />
             </TextBlock>
             <TextBlock>
-                            <Run Text="Wallet Id: " />
-                            <Run Text="{x:Bind walletId}" FontWeight="Bold" />
+                            <Run Text="Account Id: " />
+                            <Run Text="{x:Bind accountId}" FontWeight="Bold" />
             </TextBlock>
           </StackPanel>
         </DataTemplate>

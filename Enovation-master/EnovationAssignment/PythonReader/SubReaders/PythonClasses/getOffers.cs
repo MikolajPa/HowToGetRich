@@ -31,36 +31,50 @@ public static class getOffers
                 Console.WriteLine("Received JSON:");
                 Console.WriteLine(result);
 
-                // Deserialize the JSON result to the Root object
-                result = result.Replace(", 'validated': False", "");
-                Console.WriteLine(result);
-                RootObject root = JsonConvert.DeserializeObject<RootObject>(result);
+                // Extract the sell offers part from the result
+                int sellOffersIndex = result.IndexOf("Sell Offers:");
+                if (sellOffersIndex == -1)
+                {
+                    throw new Exception("Sell Offers not found in the response");
+                }
+
+                string sellOffersJson = result.Substring(sellOffersIndex + "Sell Offers:\r\n".Length);
+                sellOffersJson = sellOffersJson.Trim(); // Trim any extra whitespace
+
+                // Deserialize the sell offers JSON to the Root object
+                RootObject root = JsonConvert.DeserializeObject<RootObject>(sellOffersJson);
 
                 // Output the Root object to verify the deserialization
-                // Add more fields as necessary
+                Console.WriteLine("Deserialized Sell Offers:");
+                Console.WriteLine(JsonConvert.SerializeObject(root, Formatting.Indented));
+
                 return root;
             }
         }
     }
 
-public class NFT
-{
-    public int Flags { get; set; }
-    public string Issuer { get; set; }
-    public string NFTokenID { get; set; }
-    public int NFTokenTaxon { get; set; }
-    public int TransferFee { get; set; }
-    public string URI { get; set; }
-    public int nft_serial { get; set; }
-}
+    public class Offer
+    {
+        public string amount { get; set; }
+        public int flags { get; set; }
+        public string nft_offer_index { get; set; }
+        public string owner { get; set; }
+    }
 
-public class RootObject
-{
-    public string account { get; set; }
-    public List<NFT> account_nfts { get; set; }
-    public int ledger_current_index { get; set; }
-    public bool validated { get; set; }
-}
+    public class NFT
+    {
+        public int flags { get; set; }
+        public string issuer { get; set; }
+        public string nfTokenID { get; set; }
+        public int nfTokenTaxon { get; set; }
+        public int transferFee { get; set; }
+        public string uri { get; set; }
+        public int nft_serial { get; set; }
+    }
 
+    public class RootObject
+    {
+        public string nft_id { get; set; }
+        public List<Offer> offers { get; set; }
+    }
 }
-

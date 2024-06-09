@@ -1,0 +1,52 @@
+﻿<Page
+    x:Class="HackatonAdminPanel.Presentation.UserDetailPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:models="using:HackatonAdminPanel.Models"
+    xmlns:local="using:HackatonAdminPanel.Presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="4*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      
+    </Grid.RowDefinitions>
+    <StackPanel>
+    
+    <TextBlock HorizontalAlignment="Center"
+       VerticalAlignment="Center">
+<Run Text="{Binding Test}" />
+<Run Text="{Binding UserId}" />
+
+      </TextBlock>
+
+      <ListView ItemsSource="{Binding Roots.account_nfts, Mode=TwoWay}" SelectionMode="Single" SelectedItem="{Binding SelectedAccountNFT}">
+        <ListView.ItemTemplate>
+          <DataTemplate x:DataType="models:AccountNft">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{Binding nfTokenID}"/>
+            </StackPanel>
+            
+          </DataTemplate>
+        </ListView.ItemTemplate>
+        
+      </ListView>
+
+
+    
+
+    </StackPanel>
+
+    <StackPanel Grid.Row="1" Orientation="Horizontal">
+      <TextBox PlaceholderText="Ammount" Text="{Binding Ammount, Mode=TwoWay}" />
+      <Button Content="Add" Command="{Binding AddAmmountCommand}"/>
+    </StackPanel>
+
+      <Button Grid.Row="2" Content="Cancel" Command="{Binding GoBack}" Background="#ED5E68" Margin="10"/>
+  </Grid>
+</Page>

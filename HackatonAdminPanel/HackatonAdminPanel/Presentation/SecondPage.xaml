@@ -6,6 +6,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:uen="using:Uno.Extensions.Navigation.UI"
       xmlns:utu="using:Uno.Toolkit.UI"
+      
       xmlns:um="using:Uno.Material"
       Background="{ThemeResource BackgroundBrush}">
 
@@ -31,9 +32,12 @@
         VerticalAlignment="Center"
         Margin="8" />
       <!-- Form for adding new user -->
-      <TextBox PlaceholderText="Name" Text="{Binding Name}" Header="Name" Margin="10"/>
-      <TextBox PlaceholderText="Email" Text="{Binding Email}" Header="Email" Margin="10"/>
-      <CheckBox Content="Is Distributor" Margin="10"/>
+     
+      <TextBox PlaceholderText="Name" Text="{Binding Name, Mode=TwoWay}" Header="Name" Margin="10"/>
+      <TextBox PlaceholderText="Email" Text="{Binding Email, Mode=TwoWay}" Header="Email" Margin="10"/>
+      <TextBox PlaceholderText="Account" Text="{Binding AccountID, Mode=TwoWay}" Header="UserID" Margin="10"/>
+      <TextBox PlaceholderText="WalletID" Text="{Binding WalletID, Mode=TwoWay}" Header="WalletID" Margin="10"/>
+      <CheckBox Content="Is Distributor" Margin="10" IsChecked="{Binding IsDistributor, Mode=TwoWay}"/>
       <Button Content="Add User" Command="{Binding AddUserCommand}"  Margin="10"/>
       <Button Content="Cancel" Command="{Binding GoBack}" Background="#ED5E68" Margin="10"/>
 

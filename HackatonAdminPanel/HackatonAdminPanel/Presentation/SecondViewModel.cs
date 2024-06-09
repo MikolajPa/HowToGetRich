@@ -24,11 +24,12 @@ public partial class SecondViewModel : ObservableObject
     private string email;
     public string Email {
         get { return email; } set { email = value; OnPropertyChanged(nameof(Email)); } }
-    private string name;
+    private string name="Dd";
+    
     public string Name
     {
         get { return name; }
-        set { name = value; OnPropertyChanged(nameof(Name)); }
+        set { name = value; OnPropertyChanged(nameof(name)); }
     }
     private bool isDistributor;
     public bool IsDistributor
@@ -36,7 +37,21 @@ public partial class SecondViewModel : ObservableObject
         get => isDistributor;
         set {  isDistributor = value; OnPropertyChanged(nameof(IsDistributor)); }
     }
-
+    private string accountID;
+    public string AccountID
+    {
+        get => accountID;
+        set { accountID = value; OnPropertyChanged(nameof(AccountID)); }
+    }
+    private string walletID;
+    public string WalletID
+    {
+        get => walletID;
+        set {
+            walletID = value; OnPropertyChanged(nameof(WalletID));         
+        }
+    }
+    
 
 
     private async Task GoBackView()
@@ -46,7 +61,7 @@ public partial class SecondViewModel : ObservableObject
     }
     private async Task AddUser()
     {
-        await _apiService.AddUserAsync(new UserRequest() {Name=Name, Email=Email });
+        await _apiService.AddUserAsync(new UserRequest() {Name=Name, Email=Email, AccountId=AccountID, IsDistributor=IsDistributor, WalletId=WalletID, Password="123456" });
         await _navigator.NavigateBackAsync(this);
     }
 

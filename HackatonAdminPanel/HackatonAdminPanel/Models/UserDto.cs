@@ -2,18 +2,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace HackatonAdminPanel.Models;
 public class UserDto
 {
+    
     [Key]
+    [JsonPropertyName("id")]
     public int Id { get; set; }
+
+    [JsonPropertyName("name")]
     public string Name { get; set; }
+
+    [JsonPropertyName("email")]
     public string Email { get; set; }
-    public bool isDistributor { get; set; }
-    public string walletId { get; set; }
+
+    [JsonPropertyName("isDistributor")]
+    public bool IsDistributor { get; set; }
+
+    [JsonPropertyName("walletId")]
+    public string WalletId { get; set; }
+
+
+    public string accountId { get; set; }
 }
+
 
 public class UserRequest
 {

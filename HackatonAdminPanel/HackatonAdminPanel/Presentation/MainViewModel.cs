@@ -23,6 +23,8 @@ public partial class MainViewModel : ObservableObject
         GoToSecond = new AsyncRelayCommand(GoToSecondView);
         Refresh = new AsyncRelayCommand(RefreshData);
         Delete = new AsyncRelayCommand(DeleteData);
+        AddTokenCommand = new AsyncRelayCommand(AddToken);
+        GetDetailsCommand = new AsyncRelayCommand(GoToDetailPage);
 
         _apiService = new ApiService();
 
@@ -33,6 +35,8 @@ public partial class MainViewModel : ObservableObject
     public ICommand GoToSecond { get; }
     public ICommand Refresh { get; }
     public ICommand Delete { get; }
+    public ICommand AddTokenCommand { get; }
+    public ICommand GetDetailsCommand { get; }
 
     private async Task GoToSecondView()
     {
@@ -48,16 +52,31 @@ public partial class MainViewModel : ObservableObject
         var x = _apiService.SoftDeleteUserAsync(SelectedUser.Id);
         await RefreshData();
     }
+    private async Task AddToken()
+    {
+        var x = SelectedUser.WalletId;
+        var y = await _apiService.MintTokensAsync(x, Walleturl);
+   
+    }
 
-    private List<UserDto> usersList;
+    private async Task GoToDetailPage()
+    {
+        await _navigator.NavigateViewModelAsync<UserDetailViewModel>(this, data: new Entity(SelectedUser.accountId));
+    }
+    /*private List<UserDto> usersList;
     public List<UserDto> UsersList
     {
         get => usersList;
         set { usersList = value; OnPropertyChanged(nameof(usersList)); }
-    }
+    }*/
+    [ObservableProperty]
+    private List<UserDto> usersList;
+    [ObservableProperty]
+    private UserDto? selectedUser;
 
-    private Users selectedUser;
-    public Users SelectedUser { get=>selectedUser; set { selectedUser = value; OnPropertyChanged(nameof(SelectedUser)); }  }
+    [ObservableProperty]
+    private string walleturl="";
+    //public Users SelectedUser { get=>selectedUser; set { selectedUser = value; OnPropertyChanged(nameof(SelectedUser)); }  }
 
     private List<Users> GenerateRandomUsers()
     {

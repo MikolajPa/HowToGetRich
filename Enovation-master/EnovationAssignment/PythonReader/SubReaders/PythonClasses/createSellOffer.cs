@@ -9,8 +9,8 @@ public static class CreateSellOffer
 {
     public static RootObjectSellOffer Main(string walletId, string ammount, string nftId)
     {
-        string pythonScriptPath = @"C:\studia\Gowienko\TestPythonUserCase\TestPythonUserCase\main.py";
-        string argument = "sEd7kVz1skvDczN8MTWjek6EanXW2fe 100 000800005FD540D41BB75AD17FFE493D0F6EE33A96203560B4B604CE00155833"; // Example arguments for the Python script
+        string pythonScriptPath = @"C:\studia\HowToGetRich\Enovation-master\EnovationAssignment\PythonReader\SubReaders\PythonFiles\create_sell_offer.py";
+        string argument = $"{walletId} {ammount} {nftId}"; // Example arguments for the Python script
 
         return RunCmd(pythonScriptPath, argument);
     }
