@@ -1,0 +1,61 @@
+﻿<Page x:Class="HackatonAdminPanel.Presentation.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:HackatonAdminPanel.Presentation"
+      xmlns:models="using:HackatonAdminPanel.Models"
+      xmlns:uen="using:Uno.Extensions.Navigation.UI"
+      xmlns:utu="using:Uno.Toolkit.UI"
+      xmlns:um="using:Uno.Material"
+      NavigationCacheMode="Required"
+      Background="{ThemeResource BackgroundBrush}">
+
+  <Grid utu:SafeArea.Insets="VisibleBounds">
+    <Grid.RowDefinitions>
+      
+      <RowDefinition Height="*" />
+      <RowDefinition Height="3*" />
+    </Grid.RowDefinitions>
+    <utu:NavigationBar Content="{Binding Title}" />
+
+    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Spacing="16">
+     
+      <Button Content="Add new object"
+          AutomationProperties.AutomationId="SecondPageButton"
+          Command="{Binding GoToSecond}" />
+      <Button Content="Delete selected object" Background="#ED5E68" Margin="10"/>
+      <Button Content="Refresh" />
+    </StackPanel>
+
+    <ListView Grid.Row="1" ItemsSource="{Binding UsersList}" SelectedItem="{Binding SelectedUser}" HorizontalAlignment="Center">
+      <ListView.ItemTemplate>
+        <DataTemplate x:DataType="models:UserDto">
+          <StackPanel Orientation="Horizontal" Spacing="10">
+            <TextBlock>
+                            <Run Text="Id: " />
+                            <Run Text="{x:Bind Id}" FontWeight="Bold" />
+            </TextBlock>
+            <TextBlock>
+                            <Run Text="Name: " />
+                            <Run Text="{x:Bind Name}" FontWeight="Bold" />
+            </TextBlock>
+            <TextBlock>
+                            <Run Text="Email: " />
+                            <Run Text="{x:Bind Email}" FontWeight="Bold" />
+            </TextBlock>
+            <TextBlock>
+                            <Run Text="Distributor: " />
+                            <Run Text="{x:Bind isDistributor}" FontWeight="Bold" />
+            </TextBlock>
+            <TextBlock>
+                            <Run Text="Wallet Id: " />
+                            <Run Text="{x:Bind walletId}" FontWeight="Bold" />
+            </TextBlock>
+          </StackPanel>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </Grid>
+</Page>
